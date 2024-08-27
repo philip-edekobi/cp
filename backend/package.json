@@ -1,0 +1,18 @@
+{
+  "name": "chapelpad-backend",
+  "version": "0",
+  "description": "backend for the chapelpad church management systme",
+  "main": "src/index.js",
+  "repository": "https://github.com/Oluwasesin-A/ChapelPad-Project.git",
+  "author": "Philip Edekobi <philipedekobi@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
