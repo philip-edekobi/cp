@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
-// const waitlistRoutes = require("./waitlistRoutes");
+
+const adminRoutes = require("./adminRoutes");
+const parishAdminRoutes = require("./parishAdminRoutes");
 
 // const swaggerSpec = require("../../swagger");
 // const swaggerUi = require("swagger-ui-express");
@@ -13,5 +15,6 @@ module.exports.setupRoutes = function (app) {
 
   app.get("/failure", (_, res) => res.send("failure"));
 
-  // app.use("/waitlist", waitlistRoutes);
+  app.use("/admin", adminRoutes);
+  app.use("/parish-admin", parishAdminRoutes);
 };

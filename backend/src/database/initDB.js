@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
-// const loadWaitlist = require("./models/Waitlist");
+const loadAdmin = require("./models/Admin");
+const loadParishAdmin = require("./models/ParishAdmin");
 
 const sequelize = new Sequelize(
   "chapelpad",
@@ -22,13 +23,15 @@ async function testConn() {
   }
 }
 
-// const Waitlist = loadWaitlist(sequelize, DataTypes);
+const Admin = loadAdmin(sequelize, DataTypes);
+const ParishAdmin = loadParishAdmin(sequelize, DataTypes);
 
 // Boat.hasMany(Images);
 // Images.belongsTo(Boat);
 
 const models = {
-  // Waitlist,
+  Admin,
+  ParishAdmin,
 };
 
 module.exports = { sequelize, testConn, models };
