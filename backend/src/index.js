@@ -1,0 +1,8 @@
+const { startServer } = require("./startServer.js");
+
+try {
+  (async () => await startServer())();
+} catch (err) {
+  console.error(err);
+  process.exit(1);
+}
