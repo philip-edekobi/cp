@@ -10,7 +10,7 @@ const userTypeMap = {
 module.exports = class {
   static async getUserByEmail(email, userType) {
     try {
-      repo = userTypeMap[userType];
+      const repo = userTypeMap[userType];
 
       const user = await repo.getByEmail(email);
 
@@ -22,7 +22,7 @@ module.exports = class {
 
   static async getUserById(id, userType) {
     try {
-      repo = userTypeMap[userType];
+      const repo = userTypeMap[userType];
 
       const user = await repo.getById(id);
 
@@ -77,13 +77,12 @@ module.exports = class {
 
   static async createNewUser(userDetails, userType) {
     try {
-      repo = userTypeMap[userType];
+      const repo = userTypeMap[userType];
 
       const passwordHash = await hashPassword(userDetails.password);
       userDetails.passwordHash = passwordHash;
       userDetails.password = undefined;
 
-      console.log(userType);
       const user = await repo.create(userDetails);
 
       return user;

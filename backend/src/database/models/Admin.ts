@@ -18,7 +18,7 @@ module.exports = function (sequelize, dt) {
         field: "password_hash",
       },
     },
-    { tableName: "parish_admins", paranoid: true },
+    { tableName: "admins", paranoid: true },
   );
 
   return Admin;

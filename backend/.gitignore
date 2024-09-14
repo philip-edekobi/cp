@@ -6,3 +6,4 @@ node_modules
 *error*
 *log*
 *dump*
+yarn-error.log

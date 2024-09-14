@@ -1,4 +1,7 @@
 impl proj
+  work on upload of audio and video files
+  maybe twilio to handle the calls, and sms shii. 
+  zepto or some shii else for emails
 
 scalability
 

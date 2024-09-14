@@ -23,7 +23,7 @@ module.exports.CreateParishAdminSchema = Joi.object({
   fax: Joi.string(),
   website: Joi.string(),
   remittancePercentage: Joi.number().required(),
-  logo: Joi.string().required(),
-  signature: Joi.string().required(),
-  financialStatement: Joi.string().required(),
+  // logo: Joi.string().required(),
+  // signature: Joi.string().required(),
+  // financialStatement: Joi.string().required(),
 });

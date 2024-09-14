@@ -54,7 +54,7 @@ module.exports.app = app;
 module.exports.startServer = async function () {
   try {
     await testConn();
-    await sequelize.sync({ alter: false });
+    await sequelize.sync({ alter: true });
 
     const server = http.createServer(app);
 

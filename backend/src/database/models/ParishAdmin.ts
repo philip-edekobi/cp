@@ -51,19 +51,19 @@ module.exports = function (sequelize, dt) {
         allowNull: false,
         field: "remittance_percentage",
       },
-      logo: {
-        type: dt.STRING,
-        allowNull: false,
-      },
-      signature: {
-        type: dt.STRING,
-        allowNull: false,
-      },
-      financialStatement: {
-        type: dt.STRING,
-        allowNull: false,
-        field: "financial_statement",
-      },
+      // logo: {
+      //   type: dt.STRING,
+      //   allowNull: false,
+      // },
+      // signature: {
+      //   type: dt.STRING,
+      //   allowNull: false,
+      // },
+      // financialStatement: {
+      //   type: dt.STRING,
+      //   allowNull: false,
+      //   field: "financial_statement",
+      // },
     },
     { tableName: "parish_admins", paranoid: true },
   );
