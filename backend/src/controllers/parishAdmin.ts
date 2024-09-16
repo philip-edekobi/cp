@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 const UserService = require("../services/User");
 const { errResp, httpResp } = require("../utils/http");
 const { CreateParishAdminSchema, LoginSchema } = require("../validations");
@@ -5,7 +6,7 @@ const { generateToken } = require("../utils/token");
 
 const USERTYPE = "pa";
 
-module.exports.newParishAdmin = async (req, res) => {
+module.exports.newParishAdmin = async (req: Request, res: Response) => {
   try {
     const { error } = CreateParishAdminSchema.validate(req.body);
     if (error) {
@@ -21,7 +22,7 @@ module.exports.newParishAdmin = async (req, res) => {
   }
 };
 
-module.exports.login = async (req, res) => {
+module.exports.login = async (req: Request, res: Response) => {
   try {
     const { error } = LoginSchema.validate(req.body);
     if (error) {

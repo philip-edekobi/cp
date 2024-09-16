@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 
-module.exports.hashPassword = async (password) => {
+module.exports.hashPassword = async (password: string): Promise<string> => {
   try {
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
@@ -11,7 +11,10 @@ module.exports.hashPassword = async (password) => {
   }
 };
 
-module.exports.comparePasswordWithHash = async (password, pHash) => {
+module.exports.comparePasswordWithHash = async (
+  password: string,
+  pHash: string,
+): Promise<string> => {
   try {
     const matched = await bcrypt.compare(password, pHash);
 

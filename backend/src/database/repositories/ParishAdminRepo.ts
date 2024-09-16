@@ -1,3 +1,6 @@
+import { Model } from "sequelize";
+import { IParishAdminModel } from "../models/ParishAdmin";
+
 const {
   models: { ParishAdmin },
 } = require("../initDB");
@@ -17,7 +20,7 @@ module.exports = class {
     }
   }
 
-  static async getByID(id) {
+  static async getByID(id: number) {
     try {
       const pa = await ParishAdmin.findOne({
         where: { id },
@@ -30,7 +33,7 @@ module.exports = class {
     }
   }
 
-  static async getByEmail(email) {
+  static async getByEmail(email: string) {
     try {
       const pa = await ParishAdmin.findOne({
         where: { email },
@@ -43,7 +46,7 @@ module.exports = class {
     }
   }
 
-  static async create(details) {
+  static async create(details: Partial<IParishAdminModel>) {
     try {
       const newPa = await ParishAdmin.create({ ...details });
 

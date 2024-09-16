@@ -1,14 +1,15 @@
 const ParishAdminRepo = require("../database/repositories/ParishAdminRepo");
 const AdminRepo = require("../database/repositories/AdminRepo");
 const { comparePasswordWithHash, hashPassword } = require("../utils/password");
+import { IRepository } from "../types";
 
-const userTypeMap = {
+const userTypeMap: { [key: string]: IRepository } = {
   pa: ParishAdminRepo,
   admin: AdminRepo,
 };
 
 module.exports = class {
-  static async getUserByEmail(email, userType) {
+  static async getUserByEmail(email: string, userType: string) {
     try {
       const repo = userTypeMap[userType];
 
@@ -20,7 +21,7 @@ module.exports = class {
     }
   }
 
-  static async getUserById(id, userType) {
+  static async getUserById(id: number, userType: string) {
     try {
       const repo = userTypeMap[userType];
 
@@ -32,7 +33,7 @@ module.exports = class {
     }
   }
 
-  static async userExistsWithEmail(email, userType) {
+  static async userExistsWithEmail(email: string, userType: string) {
     try {
       const existing = await this.getUserByEmail(email, userType);
 
@@ -46,7 +47,11 @@ module.exports = class {
     }
   }
 
-  static async verifyUserPasswordByEmail(email, password, userType) {
+  static async verifyUserPasswordByEmail(
+    email: string,
+    password: string,
+    userType: string,
+  ) {
     try {
       const user = await this.getUserByEmail(email, userType);
 
@@ -56,7 +61,10 @@ module.exports = class {
     }
   }
 
-  static async loginUser(userDetails, userType) {
+  static async loginUser(
+    userDetails: { email: string; password: string },
+    userType: string,
+  ) {
     try {
       let user = await this.getUserByEmail(userDetails.email, userType);
 
@@ -75,7 +83,7 @@ module.exports = class {
     }
   }
 
-  static async createNewUser(userDetails, userType) {
+  static async createNewUser(userDetails: any, userType: string) {
     try {
       const repo = userTypeMap[userType];
 

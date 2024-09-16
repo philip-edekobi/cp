@@ -1,5 +1,24 @@
-module.exports = function (sequelize, dt) {
-  const Admin = sequelize.define(
+import {
+  Model,
+  CreationOptional,
+  Sequelize,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+} from "sequelize";
+
+export interface IAdminModel
+  extends Model<
+    InferAttributes<IAdminModel>,
+    InferCreationAttributes<IAdminModel>
+  > {
+  id: CreationOptional<number>;
+  email: string;
+  passwordHash: string;
+}
+
+export default function (sequelize: Sequelize, dt: typeof DataTypes) {
+  const Admin = sequelize.define<IAdminModel>(
     "Admin",
     {
       id: {
@@ -22,4 +41,4 @@ module.exports = function (sequelize, dt) {
   );
 
   return Admin;
-};
+}

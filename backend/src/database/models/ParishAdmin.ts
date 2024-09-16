@@ -1,5 +1,35 @@
-module.exports = function (sequelize, dt) {
-  const PA = sequelize.define(
+import {
+  Model,
+  CreationOptional,
+  Sequelize,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+} from "sequelize";
+
+export interface IParishAdminModel
+  extends Model<
+    InferAttributes<IParishAdminModel>,
+    InferCreationAttributes<IParishAdminModel>
+  > {
+  id: CreationOptional<number>;
+  churchName: string;
+  churchNameAbbr: CreationOptional<string>;
+  authorizedName: string;
+  email: string;
+  passwordHash: string;
+  phone: string;
+  address: string;
+  fax: CreationOptional<string>;
+  website: CreationOptional<string>;
+  remittancePercentage: string;
+  logo: CreationOptional<string>;
+  signature: CreationOptional<string>;
+  financialStatement: CreationOptional<string>;
+}
+
+export default function (sequelize: Sequelize, dt: typeof DataTypes) {
+  const PA = sequelize.define<IParishAdminModel>(
     "ParishAdmin",
     {
       id: {
@@ -39,9 +69,7 @@ module.exports = function (sequelize, dt) {
         type: dt.TEXT,
         allowNull: false,
       },
-      fax: {
-        type: dt.STRING,
-      },
+      fax: dt.STRING,
       website: {
         type: dt.STRING,
         unique: true,
@@ -51,22 +79,15 @@ module.exports = function (sequelize, dt) {
         allowNull: false,
         field: "remittance_percentage",
       },
-      // logo: {
-      //   type: dt.STRING,
-      //   allowNull: false,
-      // },
-      // signature: {
-      //   type: dt.STRING,
-      //   allowNull: false,
-      // },
-      // financialStatement: {
-      //   type: dt.STRING,
-      //   allowNull: false,
-      //   field: "financial_statement",
-      // },
+      logo: dt.STRING,
+      signature: dt.STRING,
+      financialStatement: {
+        type: dt.STRING,
+        field: "financial_statement",
+      },
     },
     { tableName: "parish_admins", paranoid: true },
   );
 
   return PA;
-};
+}

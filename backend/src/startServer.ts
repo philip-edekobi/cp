@@ -1,9 +1,9 @@
-const express = require("express");
-const http = require("http");
-const helmet = require("helmet");
-const cors = require("cors");
-const { sequelize, testConn } = require("./database/initDB");
-const { setupRoutes } = require("./routes");
+import express from "express";
+import http from "http";
+import helmet from "helmet";
+import cors from "cors";
+import { sequelize, testConn } from "./database/initDB";
+import { setupRoutes } from "./routes";
 // const session = require("express-session");
 // const passport = require("passport");
 // const startRedis = require("./database/redis");

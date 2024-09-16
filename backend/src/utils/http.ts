@@ -1,4 +1,6 @@
-module.exports.errResp = (statusCode, err, res) => {
+import { Response } from "express";
+
+module.exports.errResp = (statusCode: number, err: any, res: Response) => {
   if (err.name && err.name.toLowerCase().startsWith("sequelize")) {
     console.log(err);
     let type = err.errors[0].type;
@@ -11,8 +13,8 @@ module.exports.errResp = (statusCode, err, res) => {
   }
 
   if (err?.name?.startsWith("Error")) {
-    type = err.type;
-    message = err.message;
+    let type = err.type;
+    let message = err.message;
 
     err = new Error();
 
@@ -30,10 +32,12 @@ module.exports.errResp = (statusCode, err, res) => {
 
   if (err["_original"]) {
     err = {
-      details: err.details.map(({ message, type }) => ({
-        message: "field " + message.replace(/['"]/g, ""),
-        type,
-      })),
+      details: err.details.map(
+        ({ message, type }: { message: string; type: string }) => ({
+          message: "field " + message.replace(/['"]/g, ""),
+          type,
+        }),
+      ),
     };
   }
 
@@ -44,7 +48,7 @@ module.exports.errResp = (statusCode, err, res) => {
   });
 };
 
-module.exports.httpResp = (statusCode, data, res) => {
+module.exports.httpResp = (statusCode: number, data: any, res: Response) => {
   return res.status(statusCode).json({
     error: null,
     success: true,
@@ -52,7 +56,7 @@ module.exports.httpResp = (statusCode, data, res) => {
   });
 };
 
-module.exports.unAuthResp = (res) => {
+module.exports.unAuthResp = (res: Response) => {
   return res.status(401).json({
     message: "Access Denied",
     data: null,

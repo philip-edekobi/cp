@@ -1,9 +1,9 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
-const loadAdmin = require("./models/Admin");
-const loadParishAdmin = require("./models/ParishAdmin");
+import loadAdmin from "./models/Admin";
+import loadParishAdmin from "./models/ParishAdmin";
 
-const sequelize = new Sequelize(
+export const sequelize = new Sequelize(
   "chapelpad",
   "chapelpad",
   process.env.DBPASSWORD,
@@ -14,7 +14,7 @@ const sequelize = new Sequelize(
   },
 );
 
-async function testConn() {
+export async function testConn() {
   try {
     await sequelize.authenticate();
     console.log("db connection successfull");
@@ -29,9 +29,7 @@ const ParishAdmin = loadParishAdmin(sequelize, DataTypes);
 // Boat.hasMany(Images);
 // Images.belongsTo(Boat);
 
-const models = {
+export const models = {
   Admin,
   ParishAdmin,
 };
-
-module.exports = { sequelize, testConn, models };
