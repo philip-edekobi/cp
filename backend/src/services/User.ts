@@ -1,17 +1,26 @@
-const ParishAdminRepo = require("../database/repositories/ParishAdminRepo");
-const AdminRepo = require("../database/repositories/AdminRepo");
-const { comparePasswordWithHash, hashPassword } = require("../utils/password");
+import ParishAdminRepo from "../database/repositories/ParishAdminRepo";
+import AdminRepo from "../database/repositories/AdminRepo";
+import { IAdminModel } from "../database/models/Admin";
+import { IParishAdminModel } from "../database/models/ParishAdmin";
 import { IRepository } from "../types";
+import { comparePasswordWithHash, hashPassword } from "../utils/password";
 
 const userTypeMap: { [key: string]: IRepository } = {
   pa: ParishAdminRepo,
   admin: AdminRepo,
 };
 
-module.exports = class {
-  static async getUserByEmail(email: string, userType: string) {
+export default class {
+  static async getUserByEmail(
+    email: string,
+    userType: string,
+  ): Promise<IParishAdminModel | IAdminModel | null> {
     try {
       const repo = userTypeMap[userType];
+
+      if (!repo.getByEmail) {
+        return null;
+      }
 
       const user = await repo.getByEmail(email);
 
@@ -25,7 +34,7 @@ module.exports = class {
     try {
       const repo = userTypeMap[userType];
 
-      const user = await repo.getById(id);
+      const user = await repo.getByID(id);
 
       return user ? user.dataValues : null;
     } catch (err) {
@@ -51,9 +60,13 @@ module.exports = class {
     email: string,
     password: string,
     userType: string,
-  ) {
+  ): Promise<boolean> {
     try {
       const user = await this.getUserByEmail(email, userType);
+
+      if (!user) {
+        return false;
+      }
 
       return await comparePasswordWithHash(password, user.passwordHash);
     } catch (err) {
@@ -72,12 +85,12 @@ module.exports = class {
         return user;
       }
 
-      user.userValid = await comparePasswordWithHash(
+      const userValid = await comparePasswordWithHash(
         userDetails.password,
         user.passwordHash,
       );
 
-      return user;
+      return { ...user, userValid };
     } catch (err) {
       throw err;
     }
@@ -98,4 +111,4 @@ module.exports = class {
       throw err;
     }
   }
-};
+}

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-const UserService = require("../services/User");
-const { errResp, httpResp } = require("../utils/http");
-const { CreateParishAdminSchema, LoginSchema } = require("../validations");
-const { generateToken } = require("../utils/token");
+import UserService from "../services/User";
+import { errResp, httpResp } from "../utils/http";
+import { LoginSchema, CreateParishAdminSchema } from "../validations";
+import { generateToken } from "../utils/token";
 
 const USERTYPE = "pa";
 
@@ -14,7 +14,7 @@ module.exports.newParishAdmin = async (req: Request, res: Response) => {
     }
 
     const customer = await UserService.createNewUser(req.body, USERTYPE);
-    customer.passwordHash = undefined;
+    // customer.passwordHash = undefined;
 
     return httpResp(201, { user: customer }, res);
   } catch (err) {

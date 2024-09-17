@@ -1,14 +1,12 @@
-import { Model } from "sequelize";
 import { IParishAdminModel } from "../models/ParishAdmin";
+import { models } from "../initDB";
 
-const {
-  models: { ParishAdmin },
-} = require("../initDB");
+const { ParishAdmin } = models;
 
 const publicAttributes = { exclude: [] };
 
-module.exports = class {
-  static async getAll() {
+export default class {
+  static async getAll(): Promise<IParishAdminModel[]> {
     try {
       const parishAdmins = await ParishAdmin.findAll({
         attributes: publicAttributes,
@@ -20,7 +18,7 @@ module.exports = class {
     }
   }
 
-  static async getByID(id: number) {
+  static async getByID(id: number): Promise<IParishAdminModel | null> {
     try {
       const pa = await ParishAdmin.findOne({
         where: { id },
@@ -33,7 +31,7 @@ module.exports = class {
     }
   }
 
-  static async getByEmail(email: string) {
+  static async getByEmail(email: string): Promise<IParishAdminModel | null> {
     try {
       const pa = await ParishAdmin.findOne({
         where: { email },
@@ -46,7 +44,7 @@ module.exports = class {
     }
   }
 
-  static async create(details: Partial<IParishAdminModel>) {
+  static async create(details: IParishAdminModel): Promise<IParishAdminModel> {
     try {
       const newPa = await ParishAdmin.create({ ...details });
 
@@ -55,4 +53,30 @@ module.exports = class {
       throw err;
     }
   }
-};
+
+  static async updateByID(
+    id: number,
+    updateDetails: Partial<IParishAdminModel>,
+  ): Promise<IParishAdminModel | null> {
+    try {
+      const newPAdmin = await ParishAdmin.update(
+        { ...updateDetails },
+        { where: { id }, returning: true },
+      );
+
+      return newPAdmin[1][0];
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async deleteByID(id: number) {
+    try {
+      await ParishAdmin.destroy({
+        where: { id },
+      });
+    } catch (err) {
+      throw err;
+    }
+  }
+}

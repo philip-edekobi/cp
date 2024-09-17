@@ -1,8 +1,8 @@
-const path = require("path");
+import path from "path";
 import { Request, Response } from "express";
-const { errResp } = require("./http");
+import { errResp } from "./http";
 
-module.exports.handleImageRoutes = async (req: Request, res: Response) => {
+export const handleImageRoutes = async (req: Request, res: Response) => {
   try {
     const filePath = path.join(
       __dirname,

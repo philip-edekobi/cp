@@ -1,8 +1,8 @@
-const jwt = require("jsonwebtoken");
+import jwt, { JwtPayload } from "jsonwebtoken";
 
-const secret = process.env.SECRET;
+const secret = process.env.SECRET || "";
 
-module.exports.generateToken = (payload: string): string => {
+export function generateToken(payload: any): string {
   try {
     const token = jwt.sign(payload, secret, {
       expiresIn: "2h",
@@ -12,9 +12,9 @@ module.exports.generateToken = (payload: string): string => {
   } catch (err) {
     throw err;
   }
-};
+}
 
-module.exports.verifyToken = (token: string): string => {
+export function verifyToken(token: string): string | JwtPayload {
   try {
     const payload = jwt.verify(token, secret);
 
@@ -22,4 +22,4 @@ module.exports.verifyToken = (token: string): string => {
   } catch (err) {
     throw err;
   }
-};
+}

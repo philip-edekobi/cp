@@ -1,18 +1,18 @@
-const Joi = require("joi");
+import Joi from "joi";
 
-module.exports.LoginSchema = Joi.object({
+export const LoginSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
 });
 
-module.exports.CreateAdminSchema = Joi.object({
+export const CreateAdminSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
   dob: Joi.date().required(),
   phone: Joi.string(),
 });
 
-module.exports.CreateParishAdminSchema = Joi.object({
+export const CreateParishAdminSchema = Joi.object({
   churchName: Joi.string().required(),
   churchNameAbbr: Joi.string(),
   authorizedName: Joi.string().required(),

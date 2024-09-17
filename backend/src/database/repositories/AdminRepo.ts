@@ -1,16 +1,14 @@
-import { Model } from "sequelize";
 import { IAdminModel } from "../models/Admin";
+import { models } from "../initDB";
 
-const {
-  models: { Admin },
-} = require("../initDB");
+const { Admin } = models;
 
 const publicAttributes = { exclude: [] };
 
-module.exports = class {
-  static async getAll() {
+export default class {
+  static async getAll(): Promise<IAdminModel[]> {
     try {
-      const admins: Model[] = await Admin.findAll({
+      const admins = await Admin.findAll({
         attributes: publicAttributes,
       });
 
@@ -20,7 +18,7 @@ module.exports = class {
     }
   }
 
-  static async getByID(id: string) {
+  static async getByID(id: number): Promise<IAdminModel | null> {
     try {
       const admin = await Admin.findOne({
         where: { id },
@@ -33,7 +31,7 @@ module.exports = class {
     }
   }
 
-  static async getByEmail(email: string) {
+  static async getByEmail(email: string): Promise<IAdminModel | null> {
     try {
       const admin = await Admin.findOne({
         where: { email },
@@ -46,7 +44,7 @@ module.exports = class {
     }
   }
 
-  static async create(details: Partial<IAdminModel>) {
+  static async create(details: IAdminModel): Promise<IAdminModel> {
     try {
       const newAdmin = await Admin.create({ ...details });
 
@@ -55,4 +53,30 @@ module.exports = class {
       throw err;
     }
   }
-};
+
+  static async updateByID(
+    id: number,
+    updateDetails: Partial<IAdminModel>,
+  ): Promise<IAdminModel | null> {
+    try {
+      const newAdmin = await Admin.update(
+        { ...updateDetails },
+        { where: { id }, returning: true },
+      );
+
+      return newAdmin[1][0];
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async deleteByID(id: number) {
+    try {
+      await Admin.destroy({
+        where: { id },
+      });
+    } catch (err) {
+      throw err;
+    }
+  }
+}

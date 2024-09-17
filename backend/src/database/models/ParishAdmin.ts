@@ -14,18 +14,18 @@ export interface IParishAdminModel
   > {
   id: CreationOptional<number>;
   churchName: string;
-  churchNameAbbr: CreationOptional<string>;
+  churchNameAbbr: string | null;
   authorizedName: string;
   email: string;
   passwordHash: string;
   phone: string;
   address: string;
-  fax: CreationOptional<string>;
-  website: CreationOptional<string>;
+  fax: string | null;
+  website: string | null;
   remittancePercentage: string;
-  logo: CreationOptional<string>;
-  signature: CreationOptional<string>;
-  financialStatement: CreationOptional<string>;
+  logo: string | null;
+  signature: string | null;
+  financialStatement: string | null;
 }
 
 export default function (sequelize: Sequelize, dt: typeof DataTypes) {

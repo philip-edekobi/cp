@@ -1,6 +1,6 @@
-const bcrypt = require("bcryptjs");
+import bcrypt from "bcryptjs";
 
-module.exports.hashPassword = async (password: string): Promise<string> => {
+export async function hashPassword(password: string): Promise<string> {
   try {
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
@@ -9,12 +9,12 @@ module.exports.hashPassword = async (password: string): Promise<string> => {
   } catch (err) {
     throw err;
   }
-};
+}
 
-module.exports.comparePasswordWithHash = async (
+export async function comparePasswordWithHash(
   password: string,
   pHash: string,
-): Promise<string> => {
+): Promise<boolean> {
   try {
     const matched = await bcrypt.compare(password, pHash);
 
@@ -22,4 +22,4 @@ module.exports.comparePasswordWithHash = async (
   } catch (e) {
     throw e;
   }
-};
+}

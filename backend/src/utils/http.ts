@@ -1,6 +1,6 @@
 import { Response } from "express";
 
-module.exports.errResp = (statusCode: number, err: any, res: Response) => {
+export function errResp(statusCode: number, err: any, res: Response) {
   if (err.name && err.name.toLowerCase().startsWith("sequelize")) {
     console.log(err);
     let type = err.errors[0].type;
@@ -46,20 +46,20 @@ module.exports.errResp = (statusCode: number, err: any, res: Response) => {
     success: false,
     data: null,
   });
-};
+}
 
-module.exports.httpResp = (statusCode: number, data: any, res: Response) => {
+export function httpResp(statusCode: number, data: any, res: Response) {
   return res.status(statusCode).json({
     error: null,
     success: true,
     data: data,
   });
-};
+}
 
-module.exports.unAuthResp = (res: Response) => {
+export function unAuthResp(res: Response) {
   return res.status(401).json({
     message: "Access Denied",
     data: null,
     error: "User is Unauthorised",
   });
-};
+}
