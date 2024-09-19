@@ -58,7 +58,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
         type: dt.INTEGER,
         field: "category_id",
         references: {
-          model: sequelize.models.ParishInventoryCaategory,
+          model: sequelize.models.ParishInventoryCategory,
           key: "id",
         },
       },
@@ -66,8 +66,8 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
         type: dt.INTEGER,
         field: "department_id",
         references: {
-          key: "id",
           model: sequelize.models.ParishDepartment,
+          key: "id",
         },
       },
       dateProcured: {

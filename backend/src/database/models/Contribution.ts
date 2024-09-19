@@ -49,7 +49,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
         allowNull: false,
         field: "member_id",
         references: {
-          model: "sequelize.models.ParishChurchMember",
+          model: sequelize.models.ParishChurchMember,
           key: "id",
         },
       },

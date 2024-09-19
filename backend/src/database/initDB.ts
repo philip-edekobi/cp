@@ -35,7 +35,7 @@ export const sequelize = new Sequelize(
 export async function testConn() {
   try {
     await sequelize.authenticate();
-    console.log("db connection successfull");
+    console.log("db connection successful");
   } catch (err) {
     throw err;
   }
@@ -49,8 +49,8 @@ const ParishDepartment = loadDepartment(sequelize, DataTypes);
 const ParishGroup = loadGroup(sequelize, DataTypes);
 const ParishInventoryCategory = loadInventoryCategory(sequelize, DataTypes);
 const ParishInventory = loadInventory(sequelize, DataTypes);
-const ParishContribution = loadContribution(sequelize, DataTypes);
 const ParishContributionType = loadContributionType(sequelize, DataTypes);
+const ParishContribution = loadContribution(sequelize, DataTypes);
 const ParishHouseFellowship = loadHouseFellowship(sequelize, DataTypes);
 const ParishAttendance = loadAttendance(sequelize, DataTypes);
 const ParishMinistration = loadMinistration(sequelize, DataTypes);
@@ -65,6 +65,27 @@ const ParishPayment = loadPayment(sequelize, DataTypes);
 ParishAdmin.hasMany(ChurchMember, {
   foreignKey: "parish_admin_id",
 });
+ChurchMember.hasMany(ParishBirth, {
+  foreignKey: "father_id",
+});
+ChurchMember.hasMany(ParishBirth, {
+  foreignKey: "mother_id",
+});
+ChurchMember.hasMany(ParishChildren, {
+  foreignKey: "father_id",
+});
+ChurchMember.hasMany(ParishChildren, {
+  foreignKey: "mother_id",
+});
+ChurchMember.hasMany(ParishDeath, {
+  foreignKey: "member_id",
+});
+ChurchMember.hasMany(ParishWedding, {
+  foreignKey: "wife_id",
+});
+ChurchMember.hasMany(ParishWedding, {
+  foreignKey: "husband_id",
+});
 
 ParishAdmin.hasMany(ParishProgram, {
   foreignKey: "parish_admin_id",
@@ -73,7 +94,7 @@ ParishProgram.hasMany(ParishMinistration, {
   foreignKey: "program_id",
 });
 ParishProgram.hasMany(ParishContribution, {
-  foreignKey: "contribution_type_id",
+  foreignKey: "program_id",
 });
 
 ParishAdmin.hasMany(ParishDepartment, {
@@ -128,37 +149,37 @@ ParishAdmin.hasMany(ParishPledge, {
 ParishAdmin.hasMany(ParishBirth, {
   foreignKey: "parish_admin_id",
 });
-ParishBirth.hasOne(ChurchMember, {
+ParishBirth.belongsTo(ChurchMember, {
   foreignKey: "father_id",
 });
-ParishBirth.hasOne(ChurchMember, {
+ParishBirth.belongsTo(ChurchMember, {
   foreignKey: "mother_id",
 });
 
 ParishAdmin.hasMany(ParishDeath, {
   foreignKey: "parish_admin_id",
 });
-ParishDeath.hasOne(ChurchMember, {
+ParishDeath.belongsTo(ChurchMember, {
   foreignKey: "member_id",
 });
 
 ParishAdmin.hasMany(ParishWedding, {
   foreignKey: "parish_admin_id",
 });
-ParishWedding.hasOne(ChurchMember, {
+ParishWedding.belongsTo(ChurchMember, {
   foreignKey: "husband_id",
 });
-ParishWedding.hasOne(ChurchMember, {
+ParishWedding.belongsTo(ChurchMember, {
   foreignKey: "wife_id",
 });
 
 ParishAdmin.hasMany(ParishChildren, {
   foreignKey: "parish_admin_id",
 });
-ParishChildren.hasOne(ChurchMember, {
+ParishChildren.belongsTo(ChurchMember, {
   foreignKey: "father_id",
 });
-ParishChildren.hasOne(ChurchMember, {
+ParishChildren.belongsTo(ChurchMember, {
   foreignKey: "mother_id",
 });
 
@@ -179,8 +200,8 @@ export const models = {
   ParishGroup,
   ParishInventoryCategory,
   ParishInventory,
-  ParishContribution,
   ParishContributionType,
+  ParishContribution,
   ParishHouseFellowship,
   ParishAttendance,
   ParishMinistration,
