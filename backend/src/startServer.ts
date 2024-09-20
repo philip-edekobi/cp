@@ -29,7 +29,7 @@ app.use(
 app.use(express.json());
 
 // serve images
-// app.get("/images/:filename", handleImageRoutes);
+app.get("/images/:filename", handleImageRoutes);
 
 // app.use(
 //   session({

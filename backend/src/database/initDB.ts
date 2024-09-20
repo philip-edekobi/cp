@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require("sequelize");
+import { Sequelize, DataTypes } from "sequelize";
 
 import loadAdmin from "./models/Admin";
 import loadParishAdmin from "./models/ParishAdmin";
@@ -24,7 +24,7 @@ import loadPayment from "./models/Payment";
 export const sequelize = new Sequelize(
   "chapelpad",
   "chapelpad",
-  process.env.DBPASSWORD,
+  process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST || "localhost",
     dialect: "postgres",
