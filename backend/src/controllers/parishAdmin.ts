@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import UserService from "../services/User";
 import { errResp, httpResp } from "../utils/http";
-import { LoginSchema, CreateParishAdminSchema } from "../validations";
+import { LoginSchema, CreateParishAdminSchema } from "../validations/user";
 import { generateToken } from "../utils/token";
+import { ParishAdminDto } from "../dtos/user";
 
 const USERTYPE = "pa";
 
-module.exports.newParishAdmin = async (req: Request, res: Response) => {
+export const newParishAdmin = async (req: Request, res: Response) => {
   try {
     const { error } = CreateParishAdminSchema.validate(req.body);
     if (error) {
@@ -14,7 +15,6 @@ module.exports.newParishAdmin = async (req: Request, res: Response) => {
     }
 
     const customer = await UserService.createNewUser(req.body, USERTYPE);
-    // customer.passwordHash = undefined;
 
     return httpResp(201, { user: customer }, res);
   } catch (err) {
@@ -22,14 +22,17 @@ module.exports.newParishAdmin = async (req: Request, res: Response) => {
   }
 };
 
-module.exports.login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
   try {
     const { error } = LoginSchema.validate(req.body);
     if (error) {
       return errResp(400, error, res);
     }
 
-    const user = await UserService.loginUser(req.body, USERTYPE);
+    const user = (await UserService.loginUser(
+      req.body,
+      USERTYPE,
+    )) as ParishAdminDto;
 
     if (!user) return errResp(404, { message: "User not Found" }, res);
 

@@ -1,14 +1,14 @@
-import { IAdminModel } from "../models/Admin";
+import { IParishContributionModel } from "../models/Contribution";
 import { models } from "../initDB";
 
-const { Admin } = models;
+const { ParishContribution } = models;
 
 const publicAttributes = { exclude: [] };
 
 export default class {
-  static async getAll(): Promise<IAdminModel[]> {
+  static async getAll(): Promise<IParishContributionModel[]> {
     try {
-      const admins = await Admin.findAll({
+      const admins = await ParishContribution.findAll({
         attributes: publicAttributes,
       });
 
@@ -18,9 +18,9 @@ export default class {
     }
   }
 
-  static async getByID(id: number): Promise<IAdminModel | null> {
+  static async getByID(id: number): Promise<IParishContributionModel | null> {
     try {
-      const admin = await Admin.findOne({
+      const admin = await ParishContribution.findOne({
         where: { id },
         attributes: publicAttributes,
       });
@@ -31,9 +31,11 @@ export default class {
     }
   }
 
-  static async getByEmail(email: string): Promise<IAdminModel | null> {
+  static async getByEmail(
+    email: string,
+  ): Promise<IParishContributionModel | null> {
     try {
-      const admin = await Admin.findOne({
+      const admin = await ParishContribution.findOne({
         where: { email },
         attributes: publicAttributes,
       });
@@ -44,11 +46,11 @@ export default class {
     }
   }
 
-  static async getByClause<T extends IAdminModel>(
+  static async getByClause<T extends IParishContributionModel>(
     clause: Partial<T>,
   ): Promise<T[] | null> {
     try {
-      const admins = await Admin.findAll({
+      const admins = await ParishContribution.findAll({
         where: { ...clause },
         attributes: publicAttributes,
       });
@@ -59,11 +61,15 @@ export default class {
     }
   }
 
-  static async create(details: IAdminModel): Promise<IAdminModel> {
+  static async create(
+    details: IParishContributionModel,
+  ): Promise<IParishContributionModel> {
     try {
-      const newAdmin = await Admin.create({ ...details });
+      const newParishContribution = await ParishContribution.create({
+        ...details,
+      });
 
-      return newAdmin;
+      return newParishContribution;
     } catch (err) {
       throw err;
     }
@@ -71,15 +77,15 @@ export default class {
 
   static async updateByID(
     id: number,
-    updateDetails: Partial<IAdminModel>,
-  ): Promise<IAdminModel | null> {
+    updateDetails: Partial<IParishContributionModel>,
+  ): Promise<IParishContributionModel | null> {
     try {
-      const newAdmin = await Admin.update(
+      const newParishContribution = await ParishContribution.update(
         { ...updateDetails },
         { where: { id }, returning: true },
       );
 
-      return newAdmin[1][0];
+      return newParishContribution[1][0];
     } catch (err) {
       throw err;
     }
@@ -87,7 +93,7 @@ export default class {
 
   static async deleteByID(id: number) {
     try {
-      await Admin.destroy({
+      await ParishContribution.destroy({
         where: { id },
       });
     } catch (err) {

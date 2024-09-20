@@ -23,3 +23,11 @@ export async function comparePasswordWithHash(
     throw e;
   }
 }
+
+export function generatePassword(length: number): string {
+  const randomPassword = Math.random()
+    .toString()
+    .substring(2, length + 2);
+
+  return randomPassword;
+}

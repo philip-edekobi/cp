@@ -1,7 +1,8 @@
 import { Express, Request, Response } from "express";
 
-const adminRoutes = require("./adminRoutes");
-const parishAdminRoutes = require("./parishAdminRoutes");
+import adminRoutes from "./adminRoutes";
+import parishAdminRoutes from "./parishAdminRoutes";
+import churchMemberRoutes from "./churchMemberRoutes";
 
 // const swaggerSpec = require("../../swagger");
 // const swaggerUi = require("swagger-ui-express");
@@ -16,4 +17,5 @@ export function setupRoutes(app: Express) {
 
   app.use("/admin", adminRoutes);
   app.use("/parish-admin", parishAdminRoutes);
+  app.use("/member", churchMemberRoutes);
 }

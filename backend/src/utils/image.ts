@@ -18,7 +18,6 @@ export const handleImageRoutes = async (req: Request, res: Response) => {
 
     res.sendFile(filePath);
   } catch (err) {
-    console.log(err);
     return errResp(500, err, res);
   }
 };

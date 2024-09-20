@@ -44,6 +44,21 @@ export default class {
     }
   }
 
+  static async getByClause<T extends IParishAdminModel>(
+    clause: Partial<T>,
+  ): Promise<T[] | null> {
+    try {
+      const admins = await ParishAdmin.findAll({
+        where: { ...clause },
+        attributes: publicAttributes,
+      });
+
+      return admins as T[];
+    } catch (err) {
+      throw err;
+    }
+  }
+
   static async create(details: IParishAdminModel): Promise<IParishAdminModel> {
     try {
       const newPa = await ParishAdmin.create({ ...details });

@@ -26,6 +26,10 @@ export interface IParishAdminModel
   logo: string | null;
   signature: string | null;
   financialStatement: string | null;
+  profileImageUrl: string | null;
+  subscriptionValid: boolean;
+  subscriptionExpiresAt: Date | null;
+  availableSmsUnits: number;
 }
 
 export default function (sequelize: Sequelize, dt: typeof DataTypes) {
@@ -84,6 +88,24 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       financialStatement: {
         type: dt.STRING,
         field: "financial_statement",
+      },
+      profileImageUrl: {
+        type: dt.STRING,
+        field: "profile_image_url",
+      },
+      subscriptionValid: {
+        type: dt.BOOLEAN,
+        defaultValue: false,
+        field: "subscription_valid",
+      },
+      subscriptionExpiresAt: {
+        type: dt.DATE,
+        field: "subscription_expires_at",
+      },
+      availableSmsUnits: {
+        type: dt.INTEGER,
+        defaultValue: 0,
+        field: "available_sms_units",
       },
     },
     { tableName: "parish_admins", paranoid: true },

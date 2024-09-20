@@ -23,7 +23,7 @@ export interface IChurchMemberModel
   ageCategory: string;
   phone: string | null;
   email: string | null;
-  passwordHash: string | null;
+  passwordHash: string;
   dateJoined: Date | null;
   dob: Date | null;
   weddingAnniversary: Date | null;
@@ -41,9 +41,6 @@ export interface IChurchMemberModel
   hasCompletedSchoolOfDiscipleship: boolean;
   yearCompletedSchoolOfDiscipleship: number | null;
   profileImageUrl: string | null;
-  subscriptionValid: boolean;
-  subscriptionExpiresAt: Date | null;
-  availableSmsUnits: number;
 }
 
 export default function (sequelize: Sequelize, dt: typeof DataTypes) {
@@ -100,6 +97,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       },
       passwordHash: {
         type: dt.STRING,
+        allowNull: false,
         field: "password_hash",
       },
       dateJoined: {
@@ -162,20 +160,6 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       profileImageUrl: {
         type: dt.STRING,
         field: "profile_image_url",
-      },
-      subscriptionValid: {
-        type: dt.BOOLEAN,
-        defaultValue: false,
-        field: "subscription_valid",
-      },
-      subscriptionExpiresAt: {
-        type: dt.DATE,
-        field: "subscription_expires_at",
-      },
-      availableSmsUnits: {
-        type: dt.INTEGER,
-        defaultValue: 0,
-        field: "available_sms_units",
       },
     },
     { tableName: "parish_church_members", paranoid: true },

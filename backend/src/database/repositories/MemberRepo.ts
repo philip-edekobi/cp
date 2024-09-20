@@ -1,14 +1,14 @@
-import { IAdminModel } from "../models/Admin";
+import { IChurchMemberModel } from "../models/ChurchMember";
 import { models } from "../initDB";
 
-const { Admin } = models;
+const { ChurchMember } = models;
 
 const publicAttributes = { exclude: [] };
 
 export default class {
-  static async getAll(): Promise<IAdminModel[]> {
+  static async getAll(): Promise<IChurchMemberModel[]> {
     try {
-      const admins = await Admin.findAll({
+      const admins = await ChurchMember.findAll({
         attributes: publicAttributes,
       });
 
@@ -17,10 +17,9 @@ export default class {
       throw err;
     }
   }
-
-  static async getByID(id: number): Promise<IAdminModel | null> {
+  static async getByID(id: number): Promise<IChurchMemberModel | null> {
     try {
-      const admin = await Admin.findOne({
+      const admin = await ChurchMember.findOne({
         where: { id },
         attributes: publicAttributes,
       });
@@ -31,9 +30,9 @@ export default class {
     }
   }
 
-  static async getByEmail(email: string): Promise<IAdminModel | null> {
+  static async getByEmail(email: string): Promise<IChurchMemberModel | null> {
     try {
-      const admin = await Admin.findOne({
+      const admin = await ChurchMember.findOne({
         where: { email },
         attributes: publicAttributes,
       });
@@ -44,11 +43,11 @@ export default class {
     }
   }
 
-  static async getByClause<T extends IAdminModel>(
+  static async getByClause<T extends IChurchMemberModel>(
     clause: Partial<T>,
   ): Promise<T[] | null> {
     try {
-      const admins = await Admin.findAll({
+      const admins = await ChurchMember.findAll({
         where: { ...clause },
         attributes: publicAttributes,
       });
@@ -59,11 +58,13 @@ export default class {
     }
   }
 
-  static async create(details: IAdminModel): Promise<IAdminModel> {
+  static async create(
+    details: IChurchMemberModel,
+  ): Promise<IChurchMemberModel> {
     try {
-      const newAdmin = await Admin.create({ ...details });
+      const newChurchMember = await ChurchMember.create({ ...details });
 
-      return newAdmin;
+      return newChurchMember;
     } catch (err) {
       throw err;
     }
@@ -71,15 +72,15 @@ export default class {
 
   static async updateByID(
     id: number,
-    updateDetails: Partial<IAdminModel>,
-  ): Promise<IAdminModel | null> {
+    updateDetails: Partial<IChurchMemberModel>,
+  ): Promise<IChurchMemberModel | null> {
     try {
-      const newAdmin = await Admin.update(
+      const newChurchMember = await ChurchMember.update(
         { ...updateDetails },
         { where: { id }, returning: true },
       );
 
-      return newAdmin[1][0];
+      return newChurchMember[1][0];
     } catch (err) {
       throw err;
     }
@@ -87,7 +88,7 @@ export default class {
 
   static async deleteByID(id: number) {
     try {
-      await Admin.destroy({
+      await ChurchMember.destroy({
         where: { id },
       });
     } catch (err) {
