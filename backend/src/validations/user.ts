@@ -22,6 +22,38 @@ export const LoginSchema = Joi.object({
   password: Joi.string().required(),
 });
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     CreateAdminSchema:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *         - dob
+ *         - surname
+ *         - othernames
+ *       properties:
+ *         email:
+ *           type: string
+ *           default: JoshDon@example.com
+ *         password:
+ *           type: string
+ *           default: mypassword
+ *         dob:
+ *           type: string
+ *           default: "03/14/2024"
+ *         phone:
+ *           type: string
+ *           default: +1201904577
+ *         surname:
+ *           type: string
+ *           default: Martin
+ *         othernames:
+ *           type: string
+ *           default: Julie Gwen
+ */
 export const CreateAdminSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
@@ -31,6 +63,37 @@ export const CreateAdminSchema = Joi.object({
   othernames: Joi.string().required(),
 });
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     CreateParishAdminSchema:
+ *       type: object
+ *       required:
+ *         - churchName
+ *         - authorizedName
+ *         - email
+ *         - password
+ *         - address
+ *         - remittancePercentage
+ *       properties:
+ *         churchName:
+ *         churchNameAbbr:
+ *         authorizedName:
+ *         email:
+ *           type: string
+ *           default: JoshDon@example.com
+ *         password:
+ *           type: string
+ *           default: mypassword
+ *         phone:
+ *         address:
+ *         fax:
+ *         website:
+ *         remittancePercentage:
+ *           type: number
+ *           default: 5
+ */
 export const CreateParishAdminSchema = Joi.object({
   churchName: Joi.string().required(),
   churchNameAbbr: Joi.string(),
@@ -47,6 +110,23 @@ export const CreateParishAdminSchema = Joi.object({
   // financialStatement: Joi.string().required(),
 });
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     CreateMemberSchema:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *           default: JoshDon@example.com
+ *         password:
+ *           type: string
+ *           default: mypassword
+ */
 export const CreateMemberSchema = Joi.object({
   parishAdminID: Joi.number().required(),
   surname: Joi.string().required(),
