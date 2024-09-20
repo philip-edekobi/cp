@@ -3,13 +3,12 @@ import { Express, Request, Response } from "express";
 import adminRoutes from "./adminRoutes";
 import parishAdminRoutes from "./parishAdminRoutes";
 import churchMemberRoutes from "./churchMemberRoutes";
-
-// const swaggerSpec = require("../../swagger");
-// const swaggerUi = require("swagger-ui-express");
+import { swaggerSpec } from "../swagger";
+import swaggerUi from "swagger-ui-express";
 
 export function setupRoutes(app: Express) {
-  // server swagger docs
-  // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  // serve swagger docs
+  app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   app.get("/success", (_: Request, res: Response) => res.send("Successfull"));
 
