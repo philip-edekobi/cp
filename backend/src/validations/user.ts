@@ -1,5 +1,22 @@
 import Joi from "joi";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     LoginSchema:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *           default: JoshDon@example.com
+ *         password:
+ *           type: string
+ *           default: mypassword
+ */
 export const LoginSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
