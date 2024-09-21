@@ -54,7 +54,7 @@ export interface ParishAdminDto {
   address: string;
   fax?: string;
   website?: string;
-  remittancePercentage: string;
+  remittancePercentage: number;
   logo?: string;
   signature?: string;
   financialStatement?: string;

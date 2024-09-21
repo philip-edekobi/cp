@@ -22,7 +22,7 @@ export interface IParishAdminModel
   address: string;
   fax: string | null;
   website: string | null;
-  remittancePercentage: string;
+  remittancePercentage: number;
   logo: string | null;
   signature: string | null;
   financialStatement: string | null;
@@ -79,7 +79,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
         unique: true,
       },
       remittancePercentage: {
-        type: dt.INTEGER,
+        type: dt.DECIMAL,
         allowNull: false,
         field: "remittance_percentage",
       },
@@ -96,7 +96,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       subscriptionValid: {
         type: dt.BOOLEAN,
         defaultValue: false,
-        field: "subscription_valid",
+        field: "sDubscription_valid",
       },
       subscriptionExpiresAt: {
         type: dt.DATE,

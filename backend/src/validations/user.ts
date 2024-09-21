@@ -78,8 +78,14 @@ export const CreateAdminSchema = Joi.object({
  *         - remittancePercentage
  *       properties:
  *         churchName:
+ *           type: string
+ *           default: Deeper Life Ministries
  *         churchNameAbbr:
+ *           type: string
+ *           default: null
  *         authorizedName:
+ *           type: string
+ *           default: Pastor Joshua
  *         email:
  *           type: string
  *           default: JoshDon@example.com
@@ -87,9 +93,17 @@ export const CreateAdminSchema = Joi.object({
  *           type: string
  *           default: mypassword
  *         phone:
+ *           type: string
+ *           default: +1201904577
  *         address:
+ *           type: string
+ *           default: 6, Unity Isle
  *         fax:
+ *           type: string
+ *           default: null
  *         website:
+ *           type: string
+ *           default: deeperlife.com
  *         remittancePercentage:
  *           type: number
  *           default: 5
@@ -117,15 +131,96 @@ export const CreateParishAdminSchema = Joi.object({
  *     CreateMemberSchema:
  *       type: object
  *       required:
+ *         - parishAdminID
+ *         - surname
+ *         - othernames
+ *         - designation
+ *         - gender
+ *         - ageCategory
  *         - email
- *         - password
+ *         - isBornAgain
+ *         - hasCompletedSchoolOfDiscipleship
+ *         - hasCompletedBelieversClass
+ *         - isWaterBaptised
  *       properties:
+ *         parishAdminID:
+ *           type: number
+ *           default: 3
+ *         surname:
+ *           type: string
+ *           default: Don
+ *         othernames:
+ *           type: string
+ *           default: Joshua
+ *         title:
+ *           type: string
+ *           default: Pastor
+ *         designation:
+ *           type: string
+ *           default: Area Pastor
+ *         homeAddress:
+ *           type: string
+ *           default: 25, Brooks Ave, Manhattan
+ *         gender:
+ *           type: string
+ *           default: Male
+ *         ageCategory:
+ *           type: string
+ *           default: Adult
+ *         phone:
+ *           type: string
+ *           default: +1(201)904577
  *         email:
  *           type: string
  *           default: JoshDon@example.com
- *         password:
+ *         dateJoined:
+ *           type: Date
+ *           default: 09/21/2024
+ *         dob:
+ *           type: Date
+ *           default: 09/21/2004
+ *         weddingAnniversary:
+ *           type: Date
+ *           default: 09/21/2021
+ *         department:
  *           type: string
- *           default: mypassword
+ *           default: Protocol Department
+ *         fellowship:
+ *           type: string
+ *           default: null
+ *         occupation:
+ *           type: string
+ *           default: Programmer
+ *         employer:
+ *           type: string
+ *           default: Bloomberg
+ *         officeAddress:
+ *           type: string
+ *           default: null
+ *         isBornAgain:
+ *           type: boolean
+ *           default: true
+ *         yearBornAgain:
+ *           type: number
+ *           default: 2009
+ *         hasCompletedBelieversClass:
+ *           type: boolean
+ *           default: true
+ *         yearCompletedBelieversClass:
+ *           type: number
+ *           default: 2011
+ *         isWaterBaptised:
+ *           type: boolean
+ *           default: false
+ *         yearWaterBaptised:
+ *           type: number
+ *           default: null
+ *         hasCompletedSchoolOfDiscipleship:
+ *           type: boolean
+ *           default: true
+ *         yearCompletedSchoolOfDiscipleship:
+ *           type: number
+ *           default: 2009
  */
 export const CreateMemberSchema = Joi.object({
   parishAdminID: Joi.number().required(),

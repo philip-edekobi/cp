@@ -14,9 +14,9 @@ export const newAdmin = async (req: Request, res: Response) => {
       return errResp(400, error, res);
     }
 
-    const customer = await UserService.createNewUser(req.body, USERTYPE);
+    const user = await UserService.createNewUser(req.body, USERTYPE);
 
-    return httpResp(201, { user: customer }, res);
+    return httpResp(201, { user }, res);
   } catch (err) {
     return errResp(500, err, res);
   }
