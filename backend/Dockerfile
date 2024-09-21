@@ -21,4 +21,4 @@ RUN yarn install --production
 
 EXPOSE 53330
 
-CMD ["node", "dist/index.js"]
+CMD ["node", "--env-file", ".env", "dist/index.js"]
