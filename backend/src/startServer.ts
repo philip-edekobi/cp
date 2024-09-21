@@ -17,6 +17,8 @@ const PORT = process.env.PORT || 53330;
 app.use(
   cors({
     origin: /.+/,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   }),
 );
 app.use(helmet());
