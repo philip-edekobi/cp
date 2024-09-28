@@ -1,7 +1,9 @@
 const { startServer } = require("./startServer");
 
 try {
-  (async () => await startServer())();
+  (async () => {
+    await startServer();
+  })();
 } catch (err) {
   console.error(err);
   process.exit(1);

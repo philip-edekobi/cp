@@ -8,23 +8,23 @@ const publicAttributes = { exclude: [] };
 export default class {
   static async getAll(): Promise<IChurchMemberModel[]> {
     try {
-      const admins = await ChurchMember.findAll({
+      const members = await ChurchMember.findAll({
         attributes: publicAttributes,
       });
 
-      return admins;
+      return members;
     } catch (err) {
       throw err;
     }
   }
   static async getByID(id: number): Promise<IChurchMemberModel | null> {
     try {
-      const admin = await ChurchMember.findOne({
+      const member = await ChurchMember.findOne({
         where: { id },
         attributes: publicAttributes,
       });
 
-      return admin;
+      return member;
     } catch (err) {
       throw err;
     }
@@ -32,12 +32,12 @@ export default class {
 
   static async getByEmail(email: string): Promise<IChurchMemberModel | null> {
     try {
-      const admin = await ChurchMember.findOne({
+      const member = await ChurchMember.findOne({
         where: { email },
         attributes: publicAttributes,
       });
 
-      return admin;
+      return member;
     } catch (err) {
       throw err;
     }
@@ -47,12 +47,12 @@ export default class {
     clause: Partial<T>,
   ): Promise<T[] | null> {
     try {
-      const admins = await ChurchMember.findAll({
+      const members = await ChurchMember.findAll({
         where: { ...clause },
         attributes: publicAttributes,
       });
 
-      return admins as T[];
+      return members as T[];
     } catch (err) {
       throw err;
     }

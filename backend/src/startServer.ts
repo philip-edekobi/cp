@@ -56,7 +56,10 @@ module.exports.app = app;
 module.exports.startServer = async function () {
   try {
     await testConn();
-    await sequelize.sync({ alter: true });
+
+    if (process.env.NODE_ENV && process.env.NODE_ENV !== "production") {
+      await sequelize.sync({ alter: true });
+    }
 
     const server = http.createServer(app);
 

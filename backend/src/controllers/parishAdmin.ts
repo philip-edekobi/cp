@@ -37,7 +37,7 @@ export const login = async (req: Request, res: Response) => {
     if (!user) return errResp(404, { message: "User not Found" }, res);
 
     if (!user?.userValid) {
-      return errResp(404, { message: "user not found" }, res);
+      return errResp(400, { message: "incorrect password" }, res);
     }
 
     const token = generateToken({

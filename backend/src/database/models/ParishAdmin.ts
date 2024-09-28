@@ -96,7 +96,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       subscriptionValid: {
         type: dt.BOOLEAN,
         defaultValue: false,
-        field: "sDubscription_valid",
+        field: "subscription_valid",
       },
       subscriptionExpiresAt: {
         type: dt.DATE,

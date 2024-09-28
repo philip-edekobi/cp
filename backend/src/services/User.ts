@@ -148,4 +148,20 @@ export default class {
       throw err;
     }
   }
+
+  static async updateUserByID(
+    userID: number,
+    updateDetails: Partial<AdminDto | MemberDto | ParishAdminDto>,
+    userType: string,
+  ): Promise<AdminDto | MemberDto | ParishAdminDto> {
+    try {
+      const repo = userTypeMap[userType];
+
+      const updatedUser = await repo.updateByID(userID, updateDetails);
+
+      return updatedUser as MemberDto | ParishAdminDto | AdminDto;
+    } catch (err) {
+      throw err;
+    }
+  }
 }
