@@ -71,11 +71,8 @@ export const CreateAdminSchema = Joi.object({
  *       type: object
  *       required:
  *         - churchName
- *         - authorizedName
  *         - email
  *         - password
- *         - address
- *         - remittancePercentage
  *       properties:
  *         churchName:
  *           type: string
@@ -111,14 +108,14 @@ export const CreateAdminSchema = Joi.object({
 export const CreateParishAdminSchema = Joi.object({
   churchName: Joi.string().required(),
   churchNameAbbr: Joi.string(),
-  authorizedName: Joi.string().required(),
+  authorizedName: Joi.string(),
   email: Joi.string().email().required(),
   password: Joi.string().required(),
   phone: Joi.string(),
-  address: Joi.string().required(),
+  address: Joi.string(),
   fax: Joi.string(),
   website: Joi.string(),
-  remittancePercentage: Joi.number().required(),
+  remittancePercentage: Joi.number(),
   // logo: Joi.string().required(),
   // signature: Joi.string().required(),
   // financialStatement: Joi.string().required(),
@@ -132,16 +129,7 @@ export const CreateParishAdminSchema = Joi.object({
  *       type: object
  *       required:
  *         - parishAdminID
- *         - surname
- *         - othernames
- *         - designation
- *         - gender
- *         - ageCategory
  *         - email
- *         - isBornAgain
- *         - hasCompletedSchoolOfDiscipleship
- *         - hasCompletedBelieversClass
- *         - isWaterBaptised
  *       properties:
  *         parishAdminID:
  *           type: number
@@ -224,13 +212,13 @@ export const CreateParishAdminSchema = Joi.object({
  */
 export const CreateMemberSchema = Joi.object({
   parishAdminID: Joi.number().required(),
-  surname: Joi.string().required(),
-  othernames: Joi.string().required(),
+  surname: Joi.string(),
+  othernames: Joi.string(),
   title: Joi.string(),
-  designation: Joi.string().required(),
+  designation: Joi.string(),
   homeAddress: Joi.string(),
-  gender: Joi.string().required(),
-  ageCategory: Joi.string().required(),
+  gender: Joi.string(),
+  ageCategory: Joi.string(),
   phone: Joi.string(),
   email: Joi.string().required(),
   dateJoined: Joi.date(),
@@ -241,12 +229,12 @@ export const CreateMemberSchema = Joi.object({
   occupation: Joi.string(),
   employer: Joi.string(),
   officeAddress: Joi.string(),
-  isBornAgain: Joi.boolean().required(),
+  isBornAgain: Joi.boolean(),
   yearBornAgain: Joi.number(),
-  hasCompletedBelieversClass: Joi.boolean().required(),
+  hasCompletedBelieversClass: Joi.boolean(),
   yearCompletedBelieversClass: Joi.number(),
-  isWaterBaptised: Joi.boolean().required(),
+  isWaterBaptised: Joi.boolean(),
   yearWaterBaptised: Joi.number(),
-  hasCompletedSchoolOfDiscipleship: Joi.boolean().required(),
+  hasCompletedSchoolOfDiscipleship: Joi.boolean(),
   yearCompletedSchoolOfDiscipleship: Joi.number(),
 });

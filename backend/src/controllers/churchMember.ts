@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import UserService from "../services/User";
+import MemberService from "../services/Member";
 import { errResp, httpResp } from "../utils/http";
 import { CreateMemberSchema, LoginSchema } from "../validations/user";
 import { generateToken } from "../utils/token";

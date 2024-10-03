@@ -15,11 +15,20 @@ export interface IParishAttendanceModel
   id: CreationOptional<number>;
   parishAdminID: number;
   date: Date;
-  male: number;
-  female: number;
+  total: number;
+  male: number | null;
+  female: number | null;
+  adults: number;
+  men: number | null;
+  women: number | null;
   teenagers: number;
+  maleTeenagers: number | null;
+  femaleTeenagers: number | null;
   children: number;
-  comments: string | null;
+  maleChildren: number | null;
+  femaleChildren: number | null;
+  workers: number;
+  // comments: string | null;
 }
 
 export default function (sequelize: Sequelize, dt: typeof DataTypes) {
@@ -44,23 +53,35 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
         type: dt.DATE,
         allowNull: false,
       },
-      male: {
+      total: {
         type: dt.INTEGER,
         allowNull: false,
       },
-      female: {
+      male: dt.INTEGER,
+      female: dt.INTEGER,
+      adults: {
         type: dt.INTEGER,
         allowNull: false,
       },
+      men: dt.INTEGER,
+      women: dt.INTEGER,
       teenagers: {
         type: dt.INTEGER,
         allowNull: false,
       },
+      maleTeenagers: dt.INTEGER,
+      femaleTeenagers: dt.INTEGER,
       children: {
         type: dt.INTEGER,
         allowNull: false,
       },
-      comments: dt.TEXT,
+      maleChildren: dt.INTEGER,
+      femaleChildren: dt.INTEGER,
+      workers: {
+        type: dt.INTEGER,
+        allowNull: false,
+      },
+      // comments: dt.TEXT,
     },
     { tableName: "parish_attendance" },
   );

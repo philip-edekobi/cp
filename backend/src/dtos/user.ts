@@ -1,4 +1,5 @@
 export interface MemberDto {
+  id?: number;
   parishAdminID: number;
   surname: string;
   othernames: string;
@@ -29,9 +30,11 @@ export interface MemberDto {
   hasCompletedSchoolOfDiscipleship: boolean;
   yearCompletedSchoolOfDiscipleship?: number;
   profileImageUrl?: string;
+  userType?: string;
 }
 
 export interface AdminDto {
+  id?: number;
   email: string;
   surname: string;
   othernames: string;
@@ -40,9 +43,11 @@ export interface AdminDto {
   password?: string;
   passwordHash?: string;
   userValid?: boolean;
+  userType?: string;
 }
 
 export interface ParishAdminDto {
+  id?: number;
   password?: string;
   passwordHash?: string;
   userValid?: boolean;
@@ -62,4 +67,5 @@ export interface ParishAdminDto {
   subscriptionValid?: boolean;
   subscriptionExpiresAt?: Date;
   availableSmsUnits: number;
+  userType?: string;
 }

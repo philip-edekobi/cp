@@ -1,4 +1,6 @@
 import axios from "axios";
+import { SubscriptionDetailsDto } from "../dtos/payment";
+import { SubscriptionPackagePriceMap } from "./subscription";
 
 type PaypalData = {
   link: string;
@@ -23,7 +25,9 @@ async function generateAccessToken(): Promise<string> {
   }
 }
 
-export async function createOrder(): Promise<PaypalData> {
+export async function createOrder(
+  details: SubscriptionDetailsDto,
+): Promise<PaypalData> {
   try {
     const accessToken = await generateAccessToken();
 
@@ -40,32 +44,57 @@ export async function createOrder(): Promise<PaypalData> {
           {
             items: [
               {
-                name: "Chapel Pad",
-                description: "subscription",
-                quantity: "1",
+                name: `ChapelPad ${details.package} Subscription`,
+                description:
+                  "A subscription to the ChapelPad Church Management Software Service",
+                quantity: details.months ? details.months.toString() : "1",
+                category: "DIGITAL_GOODS",
                 unit_amount: {
                   currency_code: "USD",
-                  value: "100.00",
+                  value: SubscriptionPackagePriceMap.get(details.package),
                 },
               },
             ],
             amount: {
               currency_code: "USD",
-              value: "100.00",
+              value:
+                (
+                  parseInt(
+                    SubscriptionPackagePriceMap.get(details.package)!,
+                    10,
+                  ) * details.months!
+                ).toString() + ".00",
               breakdown: {
                 item_total: {
                   currency_code: "USD",
-                  value: "100.00",
+                  value:
+                    (
+                      parseInt(
+                        SubscriptionPackagePriceMap.get(details.package)!,
+                        10,
+                      ) * details.months!
+                    ).toString() + ".00",
                 },
               },
             },
           },
         ],
+        payment_source: {
+          paypal: {
+            experience_context: {
+              shipping_preference: "NO_SHIPPING",
+              user_action: "PAY_NOW",
+              brand_name: "ChapelPad",
+              return_url: "http://localhost:53330",
+              cancel_url: "http://localhost:53330",
+            },
+          },
+        },
       }),
     });
 
     return {
-      link: await response.data.links.find((l: any) => l.rel === "approve")
+      link: await response.data.links.find((l: any) => l.rel === "payer-action")
         .href,
       paymentID: await response.data.id,
     };

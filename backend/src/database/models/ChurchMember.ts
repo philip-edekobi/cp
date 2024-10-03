@@ -14,15 +14,15 @@ export interface IChurchMemberModel
   > {
   id: CreationOptional<number>;
   parishAdminID: number;
-  surname: string;
-  othernames: string;
+  surname: string | null;
+  othernames: string | null;
   title: string | null;
-  designation: string;
+  designation: string | null;
   homeAddress: string | null;
-  gender: string;
-  ageCategory: string;
+  gender: string | null;
+  ageCategory: string | null;
   phone: string | null;
-  email: string | null;
+  email: string;
   passwordHash: string;
   dateJoined: Date | null;
   dob: Date | null;
@@ -32,13 +32,13 @@ export interface IChurchMemberModel
   occupation: string | null;
   employer: string | null;
   officeAddress: string | null;
-  isBornAgain: boolean;
+  isBornAgain: boolean | null;
   yearBornAgain: number | null;
-  hasCompletedBelieversClass: boolean;
+  hasCompletedBelieversClass: boolean | null;
   yearCompletedBelieversClass: number | null;
-  isWaterBaptised: boolean;
+  isWaterBaptised: boolean | null;
   yearWaterBaptised: number | null;
-  hasCompletedSchoolOfDiscipleship: boolean;
+  hasCompletedSchoolOfDiscipleship: boolean | null;
   yearCompletedSchoolOfDiscipleship: number | null;
   profileImageUrl: string | null;
 }
@@ -63,16 +63,16 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       },
       surname: {
         type: dt.STRING,
-        allowNull: false,
+        // allowNull: false,
       },
       othernames: {
         type: dt.STRING,
-        allowNull: false,
+        // allowNull: false,
       },
       title: dt.STRING,
       designation: {
         type: dt.STRING,
-        allowNull: false,
+        // allowNull: false,
       },
       homeAddress: {
         type: dt.TEXT,
@@ -80,11 +80,11 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       },
       gender: {
         type: dt.STRING,
-        allowNull: false,
+        // allowNull: false,
       },
       ageCategory: {
         type: dt.STRING,
-        allowNull: false,
+        // allowNull: false,
         field: "age_category",
       },
       phone: {
@@ -94,6 +94,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       email: {
         type: dt.STRING,
         unique: true,
+        allowNull: false,
       },
       passwordHash: {
         type: dt.STRING,
@@ -119,7 +120,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       },
       isBornAgain: {
         type: dt.BOOLEAN,
-        allowNull: false,
+        // allowNull: false,
         defaultValue: false,
         field: "is_born_again",
       },
@@ -129,7 +130,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       },
       hasCompletedBelieversClass: {
         type: dt.BOOLEAN,
-        allowNull: false,
+        // allowNull: false,
         defaultValue: false,
         field: "has_completed_believers_class",
       },
@@ -139,7 +140,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       },
       isWaterBaptised: {
         type: dt.BOOLEAN,
-        allowNull: false,
+        // allowNull: false,
         defaultValue: false,
         field: "is_water_baptised",
       },
@@ -149,7 +150,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       },
       hasCompletedSchoolOfDiscipleship: {
         type: dt.BOOLEAN,
-        allowNull: false,
+        // allowNull: false,
         defaultValue: false,
         field: "has_completed_school_of_discipleship",
       },

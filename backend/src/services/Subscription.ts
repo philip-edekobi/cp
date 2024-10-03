@@ -2,20 +2,9 @@ import UserService from "./User";
 import PaymentService from "./Payment";
 import { PaymentReceiptDto } from "../dtos/payment";
 import { ParishAdminDto } from "../dtos/user";
-
-const SubscriptionPackageSMSMap = new Map([
-  ["Free Trial", 3],
-  ["Standard", 1000],
-  ["Professional", 2000],
-  ["Ultimate", 3000],
-]);
-
-type SubscriptionDetails = {
-  package: string;
-  rate: number;
-  months?: number;
-  amount: number;
-};
+import { SubscriptionDetailsDto } from "../dtos/payment";
+import { SubscriptionPackageSMSMap } from "../utils/subscription";
+import { createOrder, capturePayment } from "../utils/paypal";
 
 type SubSummary = {
   parishAdmin: ParishAdminDto;
@@ -25,7 +14,7 @@ type SubSummary = {
 export default class {
   static async createSub(
     parishAdminID: number,
-    details: SubscriptionDetails,
+    details: SubscriptionDetailsDto,
   ): Promise<SubSummary> {
     const rn = new Date();
 
@@ -55,5 +44,20 @@ export default class {
       })) as PaymentReceiptDto;
     }
     return { parishAdmin, payment };
+  }
+
+  static async init(parishAdminID: number, details: SubscriptionDetailsDto) {
+    try {
+      // TODO if free skip all this nonsense and just create the sub
+      if (details.package === "Free Trial") {
+        await this.createSub(parishAdminID, details);
+      } else {
+        const paypalData = await createOrder(details);
+
+        return paypalData;
+      }
+    } catch (err) {
+      throw err;
+    }
   }
 }

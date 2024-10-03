@@ -15,14 +15,14 @@ export interface IParishAdminModel
   id: CreationOptional<number>;
   churchName: string;
   churchNameAbbr: string | null;
-  authorizedName: string;
+  authorizedName: string | null;
   email: string;
   passwordHash: string;
-  phone: string;
-  address: string;
+  phone: string | null;
+  address: string | null;
   fax: string | null;
   website: string | null;
-  remittancePercentage: number;
+  remittancePercentage: number | null;
   logo: string | null;
   signature: string | null;
   financialStatement: string | null;
@@ -52,7 +52,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       },
       authorizedName: {
         type: dt.STRING,
-        allowNull: false,
+        // allowNull: false,
         field: "authorized_name",
       },
       email: {
@@ -67,11 +67,11 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       },
       phone: {
         type: dt.STRING,
-        allowNull: false,
+        // allowNull: false,
       },
       address: {
         type: dt.TEXT,
-        allowNull: false,
+        // allowNull: false,
       },
       fax: dt.STRING,
       website: {
@@ -80,7 +80,7 @@ export default function (sequelize: Sequelize, dt: typeof DataTypes) {
       },
       remittancePercentage: {
         type: dt.DECIMAL,
-        allowNull: false,
+        // allowNull: false,
         field: "remittance_percentage",
       },
       logo: dt.STRING,

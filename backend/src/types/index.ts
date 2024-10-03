@@ -63,3 +63,7 @@ export type IRepository = {
     updateDetails: Partial<T>,
   ) => Promise<T | null>;
 };
+
+export type WhereParishAdminClause = {
+  parishAdminID: number;
+};
