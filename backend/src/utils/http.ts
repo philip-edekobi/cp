@@ -2,8 +2,8 @@ import { Response } from "express";
 
 export function errResp(statusCode: number, err: any, res: Response) {
   if (err.name && err.name.toLowerCase().startsWith("sequelize")) {
-    let type = err.errors[0].type;
-    let message = err.errors[0].message;
+    let type = err?.errors[0]?.type;
+    let message = err?.errors[0]?.message;
 
     err = new Error();
 

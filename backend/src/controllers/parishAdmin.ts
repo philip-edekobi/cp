@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 import UserService from "../services/User";
 import { errResp, httpResp } from "../utils/http";
-import { LoginSchema, CreateParishAdminSchema } from "../validations/user";
+import {
+  LoginSchema,
+  CreateParishAdminSchema,
+  EditParishAdminSchema,
+} from "../validations/user";
 import { generateToken } from "../utils/token";
 import { ParishAdminDto } from "../dtos/user";
 
@@ -48,6 +52,25 @@ export const login = async (req: Request, res: Response) => {
     // req.session.token = token;
 
     return httpResp(200, { token }, res);
+  } catch (err) {
+    return errResp(500, err, res);
+  }
+};
+
+export const edit = async (req: Request, res: Response) => {
+  try {
+    const { error } = EditParishAdminSchema.validate(req.body);
+    if (error) {
+      return errResp(400, error, res);
+    }
+
+    const user = await UserService.updateUserByID(
+      req.user!.id!,
+      <ParishAdminDto>req.body,
+      USERTYPE,
+    );
+
+    return httpResp(200, { user }, res);
   } catch (err) {
     return errResp(500, err, res);
   }

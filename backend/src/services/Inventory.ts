@@ -56,6 +56,14 @@ export default class {
     }
   }
 
+  static async deleteAssetByID(id: number): Promise<void> {
+    try {
+      await InventoryRepo.deleteByID(id);
+    } catch (err) {
+      throw err;
+    }
+  }
+
   static async getAllInventoryCategories(): Promise<InventoryCategoryDto[]> {
     try {
       const categories = await InventoryCategoryRepo.getAll();

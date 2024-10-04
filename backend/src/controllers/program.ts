@@ -82,7 +82,7 @@ export const editProgram = async (req: Request, res: Response) => {
 
     const program = await ProgramService.editProgramByID(
       id,
-      <ProgramDto>req.body,
+      <Partial<ProgramDto>>req.body,
     );
 
     return httpResp(200, { program }, res);

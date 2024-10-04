@@ -14,16 +14,6 @@ export default class {
     }
   }
 
-  static async getMemberByID(id: number): Promise<MemberDto> {
-    try {
-      const member = await MemberRepo.getByID(id);
-
-      return member as MemberDto;
-    } catch (err) {
-      throw err;
-    }
-  }
-
   static async getAllMembersByParishAdmin(
     clause: WhereParishAdminClause,
   ): Promise<MemberDto[]> {
@@ -31,22 +21,6 @@ export default class {
       const members = await MemberRepo.getByClause(clause);
 
       return members as MemberDto[];
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  static async editMemberDetailsByID(
-    id: number,
-    details: Partial<MemberDto>,
-  ): Promise<MemberDto> {
-    try {
-      const member = await MemberRepo.updateByID(
-        id,
-        <Partial<IChurchMemberModel>>details,
-      );
-
-      return member as MemberDto;
     } catch (err) {
       throw err;
     }

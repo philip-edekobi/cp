@@ -2,7 +2,11 @@ import { Request, Response } from "express";
 import UserService from "../services/User";
 import MemberService from "../services/Member";
 import { errResp, httpResp } from "../utils/http";
-import { CreateMemberSchema, LoginSchema } from "../validations/user";
+import {
+  CreateMemberSchema,
+  LoginSchema,
+  EditMemberSchema,
+} from "../validations/user";
 import { generateToken } from "../utils/token";
 import { MemberDto } from "../dtos/user";
 
@@ -44,6 +48,25 @@ export const login = async (req: Request, res: Response) => {
     });
 
     return httpResp(200, { token }, res);
+  } catch (err) {
+    return errResp(500, err, res);
+  }
+};
+
+export const edit = async (req: Request, res: Response) => {
+  try {
+    const { error } = EditMemberSchema.validate(req.body);
+    if (error) {
+      return errResp(400, error, res);
+    }
+
+    const user = await UserService.updateUserByID(
+      req.user!.id!,
+      <MemberDto>req.body,
+      USERTYPE,
+    );
+
+    return httpResp(200, { user }, res);
   } catch (err) {
     return errResp(500, err, res);
   }
