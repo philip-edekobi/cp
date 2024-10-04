@@ -1,15 +1,15 @@
 export interface MemberDto {
   id?: number;
   parishAdminID: number;
-  surname: string;
-  othernames: string;
+  surname?: string;
+  othernames?: string;
   title?: string;
-  designation: string;
+  designation?: string;
   homeAddress?: string;
-  gender: string;
-  ageCategory: string;
+  gender?: string;
+  ageCategory?: string;
   phone?: string;
-  email?: string;
+  email: string;
   password?: string;
   passwordHash?: string;
   userValid?: boolean;
@@ -21,13 +21,13 @@ export interface MemberDto {
   occupation?: string;
   employer?: string;
   officeAddress?: string;
-  isBornAgain: boolean;
+  isBornAgain?: boolean;
   yearBornAgain?: number;
-  hasCompletedBelieversClass: boolean;
+  hasCompletedBelieversClass?: boolean;
   yearCompletedBelieversClass?: number;
-  isWaterBaptised: boolean;
+  isWaterBaptised?: boolean;
   yearWaterBaptised?: number;
-  hasCompletedSchoolOfDiscipleship: boolean;
+  hasCompletedSchoolOfDiscipleship?: boolean;
   yearCompletedSchoolOfDiscipleship?: number;
   profileImageUrl?: string;
   userType?: string;
@@ -56,7 +56,7 @@ export interface ParishAdminDto {
   authorizedName: string;
   email: string;
   phone?: string;
-  address: string;
+  address?: string;
   fax?: string;
   website?: string;
   remittancePercentage: number;
