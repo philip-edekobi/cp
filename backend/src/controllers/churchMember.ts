@@ -7,6 +7,7 @@ import {
   LoginSchema,
   EditMemberSchema,
 } from "../validations/user";
+import { ByParishAdminQuery } from "../validations/query";
 import { generateToken } from "../utils/token";
 import { MemberDto } from "../dtos/user";
 
@@ -67,6 +68,46 @@ export const edit = async (req: Request, res: Response) => {
     );
 
     return httpResp(200, { user }, res);
+  } catch (err) {
+    return errResp(500, err, res);
+  }
+};
+
+export const getAllMembersByParishAdmin = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const { error } = ByParishAdminQuery.validate(req.query);
+    if (error) {
+      return errResp(400, error, res);
+    }
+
+    const members = await MemberService.getAllMembersByParishAdmin({
+      parishAdminID: parseInt(<string>req.query.parishAdminID, 10),
+    });
+
+    return httpResp(200, { members }, res);
+  } catch (err) {
+    return errResp(500, err, res);
+  }
+};
+
+export const getOneMember = async (req: Request, res: Response) => {
+  try {
+    if (!req.params.id) {
+      return errResp(400, { message: "id param required" }, res);
+    }
+
+    const id = parseInt(req.params.id, 10);
+
+    const member = await UserService.getUserById(id, USERTYPE);
+
+    if (!member) {
+      return errResp(404, { message: "not found" }, res);
+    }
+
+    return httpResp(200, { member }, res);
   } catch (err) {
     return errResp(500, err, res);
   }
