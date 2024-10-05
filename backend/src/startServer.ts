@@ -18,11 +18,12 @@ app.options("*", cors());
 app.use(
   cors({
     // origin: "*",
-    origin: [
-      "http://localhost:5173",
-      "localhost:5173",
-      "https://chapelmate.com",
-    ],
+    // origin: [
+    //   "http://localhost:5173",
+    //   "localhost:5173",
+    //   "https://chapelmate.com",
+    // ],
+    origin: /^.*$/,
     allowedHeaders: ["Content-Type", "Authorization"],
     optionsSuccessStatus: 200,
     credentials: true,
