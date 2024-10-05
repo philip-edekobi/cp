@@ -14,10 +14,13 @@ const { handleImageRoutes } = require("./utils/image");
 const app = express();
 const PORT = process.env.PORT || 53330;
 
+app.options("*", cors());
 app.use(
   cors({
-    origin: /.+/,
+    // origin: "*",
+    origin: /^.*$/,
     allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 200,
     credentials: true,
   }),
 );
