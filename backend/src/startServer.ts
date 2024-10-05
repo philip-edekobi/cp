@@ -23,9 +23,9 @@ app.use(
     //   "localhost:5173",
     //   "https://chapelmate.com",
     // ],
-    origin: /^.*$/,
-    allowedHeaders: ["Content-Type", "Authorization"],
-    optionsSuccessStatus: 200,
+    origin: /.+/,
+    // allowedHeaders: ["Content-Type", "Authorization"],
+    // optionsSuccessStatus: 200,
     // credentials: true,
   }),
 );
@@ -64,10 +64,11 @@ module.exports.app = app;
 module.exports.startServer = async function () {
   try {
     await testConn();
+    await sequelize.sync({ alter: true });
 
-    if (process.env.NODE_ENV && process.env.NODE_ENV !== "production") {
-      await sequelize.sync({ alter: true });
-    }
+    // if (process.env.NODE_ENV && process.env.NODE_ENV !== "production") {
+    //   await sequelize.sync({ alter: true });
+    // }
 
     const server = http.createServer(app);
 
