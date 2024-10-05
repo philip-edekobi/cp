@@ -26,7 +26,7 @@ app.use(
     origin: /^.*$/,
     allowedHeaders: ["Content-Type", "Authorization"],
     optionsSuccessStatus: 200,
-    credentials: true,
+    // credentials: true,
   }),
 );
 app.use(helmet());
