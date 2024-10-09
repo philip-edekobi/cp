@@ -22,8 +22,8 @@ import loadFirstTimer from "./models/FirstTimer";
 import loadPayment from "./models/Payment";
 
 export const sequelize = new Sequelize(
-  "chapelpad",
-  "chapelpad",
+  "chapelmate",
+  "chapelmate",
   process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST || "localhost",
